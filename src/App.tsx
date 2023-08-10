@@ -1,6 +1,15 @@
-import './App.css'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import RootLayout from './pages/Root';
+import {createGlobalStyle} from 'styled-components';
+import reset from 'styled-reset';
+import '@fontsource/poppins';
+
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+`;
 
 const router = createBrowserRouter([
   {
@@ -15,7 +24,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return <>
+    <GlobalStyle />
+    <RouterProvider router={router} />
+  </>
 }
 
 export default App
