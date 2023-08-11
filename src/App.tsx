@@ -4,6 +4,7 @@ import {createGlobalStyle} from 'styled-components';
 import reset from 'styled-reset';
 import '@fontsource/poppins';
 import Login from './pages/Login';
+import Home from './pages/Home';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -22,6 +23,9 @@ const router = createBrowserRouter([
       },
       {
         path: '/signup', element: <></>,
+      },
+      {
+        path: '/home', element: <Home/>
       }
     ]
   },
