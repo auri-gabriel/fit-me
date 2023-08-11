@@ -3,6 +3,7 @@ import RootLayout from './pages/Root';
 import {createGlobalStyle} from 'styled-components';
 import reset from 'styled-reset';
 import '@fontsource/poppins';
+import Login from './pages/Login';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -17,7 +18,10 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: '/', element: <div> Herro everynyan, how are you fine thank you!</div>
+        path: '/login', element: <Login />,
+      },
+      {
+        path: '/signup', element: <></>,
       }
     ]
   },
