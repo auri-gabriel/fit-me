@@ -29,12 +29,15 @@ const Image = styled.img`
 const Title = styled.h3`
   margin-top: 10px;
   font-size: 20px;
+  word-wrap: break-word;
+  width: 256px;
 `;
 
 const Details = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 256px;
 `;
 
 const Region = styled.span`
@@ -47,6 +50,7 @@ const ArrivalTime = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 10px;
+  width: 256px;
 `;
 
 const ArrivalIcon = styled.img`

@@ -13,14 +13,14 @@ const HomeContainer = styled.div`
 const Home: React.FC = () => {
   const foodItems = [
     {
-      title: 'Burger',
+      title: 'Ramachandra Parlour',
       description: 'A delicious and juicy burger.',
       imageUrl: 'src/assets/placeholder.png',
       region: 'United States',
       rating: 4.5
     },
     {
-      title: 'Pizza',
+      title: 'asdfk;jlasd;ljkl;kjs ad;ljkfl;jkdasf;ljksdf',
       description: 'Cheesy and mouthwatering pizza.',
       imageUrl: 'src/assets/placeholder.png',
       region: 'Italy',
