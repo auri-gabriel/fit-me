@@ -18,7 +18,7 @@ const Input = styled.input`
   padding: 1rem;
   width: 100%;
   border-radius: 10px;
-  stroke
+  box-sizing: border-box;
 `;
 
 interface TextFieldProps {
