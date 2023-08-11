@@ -6,6 +6,14 @@ const FooterContainer = styled.footer`
   background-color: #FC8019;
   color: white;
   padding: 10rem 20rem;
+
+  @media (max-width: 1440px){
+    padding: 5rem 10rem;
+  }
+
+  @media (max-width: 1024px){
+    padding: 5rem 5rem;
+  }
 `;
 
 const FooterContent = styled.div`
@@ -20,6 +28,12 @@ const TopRow = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-between;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
 `;
 
 const Logo = styled.img`
@@ -30,9 +44,19 @@ const Logo = styled.img`
 const Links = styled.ul`
   list-style: none;
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   margin: 0;
   padding: 0;
+
+  @media (max-width: 1024px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin: 1rem;
+    gap: 1rem;
+  }
 `;
 
 const LinkItem = styled.li`
@@ -46,10 +70,20 @@ const LinkItem = styled.li`
 
 const ContactInfo = styled.div`
   font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
   
   .number{
     font-size: 16px;
     font-weight: bold;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+  @media (max-width: 768px) {
+    margin: 1rem;
   }
 `;
 
@@ -78,7 +112,7 @@ const Footer: React.FC = () => {
           </Links>
           <ContactInfo>
             Contact:
-            <span className="number">+91 1234567899</span>
+            <span className="number">+91&nbsp;1234567899</span>
           </ContactInfo>
         </TopRow>
         <SocialIcons>
