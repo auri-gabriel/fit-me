@@ -4,6 +4,7 @@ import TextField from '../components/Forms/Textfield';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
 import axios from 'axios';
 import {isValidEmail} from '../utils/isValidEmail';
+import { Link } from 'react-router-dom';
 
 const SignupFormContainer = styled.div`
   max-width: 500px;
@@ -145,7 +146,7 @@ const Signup: React.FC = () => {
           <TextField label="Password" type="password" name="password" value={signupData.password} onChange={handleInputChange} error={errors.password} />
           <TextField label="Confirm Password" type="password" name="confirmPassword" value={signupData.confirmPassword} onChange={handleInputChange} error={errors.confirmPassword} />
           <SignupLink>
-            Already have an account? <a href="#">Login</a>
+            Already have an account? <Link to="/login">Login</Link>
           </SignupLink>
           <PrimaryButton type="submit">Sign Up</PrimaryButton>
         </form>
