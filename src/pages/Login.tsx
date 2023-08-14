@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextField from '../components/Forms/Textfield';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
+import axios from 'axios';
 
 const LoginFormContainer = styled.div`
   max-width: 500px;
@@ -49,6 +50,41 @@ const RegisterLink = styled.p`
 `;
 
 const Login: React.FC = () => {
+  const [loginData, setLoginData] = useState({
+    username: '',
+    password: ''
+  });
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setLoginData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleLogin = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    axios.get('https://parseapi.back4app.com/login', {
+      params: {
+        username: loginData.username,
+        password: loginData.password
+      },
+      headers: {
+        'X-Parse-Application-Id': 'lrAPveloMl57TTby5U0S4rFPBrANkAhLUll8jFOh',
+        'X-Parse-REST-API-Key': '8aqUBWOjOplfA6lstntyYsYVkt3RzpVtb8qU5x08',
+        'X-Parse-Revocable-Session': '1'
+      }
+    })
+    .then(response => {
+      console.log('Login successful:', response);
+    })
+    .catch(error => {
+      console.error('Error logging in:', error);
+    });
+  };
+
   return (
     <>
       <HeaderContainer>
@@ -56,9 +92,9 @@ const Login: React.FC = () => {
         <hr />
       </HeaderContainer>
       <LoginFormContainer>
-        <form>
-          <TextField label="Username" />
-          <TextField label="Password" type="password" />
+        <form onSubmit={handleLogin}>
+          <TextField label="Username" name="username" value={loginData.username} onChange={handleInputChange} />
+          <TextField label="Password" type="password" name="password" value={loginData.password} onChange={handleInputChange} />
           <RegisterLink>
             Don't have an account? <a href="#">Register</a>
           </RegisterLink>
@@ -72,4 +108,3 @@ const Login: React.FC = () => {
 };
 
 export default Login;
-
