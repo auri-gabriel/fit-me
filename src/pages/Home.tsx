@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import FoodCard from '../components/Cards/FoodCard';
+
+interface Restaurant {
+  name: string;
+  image: string;
+  location: string;
+  rating: number;
+}
 
 const RestaurantsContainer = styled.div`
   display: flex;
@@ -36,76 +44,34 @@ const HomeContainer = styled.div`
 `;
 
 const Home: React.FC = () => {
-  const foodItems = [
-    {
-      title: 'Ramachandra Parlour',
-      description: 'A delicious and juicy burger.',
-      imageUrl: 'src/assets/placeholder.png',
-      region: 'United States',
-      rating: 4.5
-    },
-    {
-      title: 'asdfk;jlasd;ljkl;kjs ad;ljkfl;jkdasf;ljksdf',
-      description: 'Cheesy and mouthwatering pizza.',
-      imageUrl: 'src/assets/placeholder.png',
-      region: 'Italy',
-      rating: 4.5
-    },
-    {
-      title: 'asdfk;jlasd;ljkl;kjs ad;ljkfl;jkdasf;ljksdf',
-      description: 'Cheesy and mouthwatering pizza.',
-      imageUrl: 'src/assets/placeholder.png',
-      region: 'Italy',
-      rating: 4.5
-    },
-    {
-      title: 'asdfk;jlasd;ljkl;kjs ad;ljkfl;jkdasf;ljksdf',
-      description: 'Cheesy and mouthwatering pizza.',
-      imageUrl: 'src/assets/placeholder.png',
-      region: 'Italy',
-      rating: 4.5
-    },
-    {
-      title: 'asdfk;jlasd;ljkl;kjs ad;ljkfl;jkdasf;ljksdf',
-      description: 'Cheesy and mouthwatering pizza.',
-      imageUrl: 'src/assets/placeholder.png',
-      region: 'Italy',
-      rating: 4.5
-    },
-    {
-      title: 'asdfk;jlasd;ljkl;kjs ad;ljkfl;jkdasf;ljksdf',
-      description: 'Cheesy and mouthwatering pizza.',
-      imageUrl: 'src/assets/placeholder.png',
-      region: 'Italy',
-      rating: 4.5
-    },
-    {
-      title: 'asdfk;jlasd;ljkl;kjs ad;ljkfl;jkdasf;ljksdf',
-      description: 'Cheesy and mouthwatering pizza.',
-      imageUrl: 'src/assets/placeholder.png',
-      region: 'Italy',
-      rating: 4.5
-    },
-    {
-      title: 'asdfk;jlasd;ljkl;kjs ad;ljkfl;jkdasf;ljksdf',
-      description: 'Cheesy and mouthwatering pizza.',
-      imageUrl: 'src/assets/placeholder.png',
-      region: 'Italy',
-      rating: 4.5
-    },
-  ];
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+
+  useEffect(() => {
+    axios.get('https://parseapi.back4app.com/classes/FitMe', {
+      headers: {
+        'X-Parse-Application-Id': 'lrAPveloMl57TTby5U0S4rFPBrANkAhLUll8jFOh',
+        'X-Parse-REST-API-Key': '8aqUBWOjOplfA6lstntyYsYVkt3RzpVtb8qU5x08'
+      }
+    })
+      .then(response => {
+        setRestaurants(response.data.results);
+      })
+      .catch(error => {
+        console.error('Error fetching restaurant data:', error);
+      });
+  }, []);
 
   return (
     <HomeContainer>
       <h2>Restaurants</h2>
       <RestaurantsContainer>
-        {foodItems.map((item, index) => (
+        {restaurants.map((restaurant, index) => (
           <FoodCard
             key={index}
-            title={item.title}
-            imageUrl={item.imageUrl}
-            region={item.region}
-            rating={item.rating}
+            title={restaurant.name}
+            imageUrl={restaurant.image}
+            region={restaurant.location}
+            rating={restaurant.rating}
             arrivalTime='30 min'
           />
         ))}
