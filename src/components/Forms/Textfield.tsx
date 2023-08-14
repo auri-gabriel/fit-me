@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 const TextFieldContainer = styled.div`
@@ -24,16 +24,18 @@ const Input = styled.input`
 interface TextFieldProps {
   label: string;
   type?: string;
+  name?: string;
+  value?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void; // Add onChange handler
 }
 
-const TextField: React.FC<TextFieldProps> = ({ label, type = 'text' }) => {
+const TextField: React.FC<TextFieldProps> = ({ label, type = 'text', name, value, onChange }) => {
   return (
     <TextFieldContainer>
       <Label>{label}</Label>
-      <Input type={type} />
+      <Input type={type} name={name} value={value} onChange={onChange} />
     </TextFieldContainer>
   );
 };
 
 export default TextField;
-
