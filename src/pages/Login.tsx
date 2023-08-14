@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import TextField from '../components/Forms/Textfield';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
@@ -55,34 +55,58 @@ const Login: React.FC = () => {
     password: ''
   });
 
+  const [errors, setErrors] = useState({
+    username: null,
+    password: null,
+  });
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const {name, value} = event.target;
     setLoginData(prevData => ({
       ...prevData,
       [name]: value
     }));
   };
 
+  const validateInputs = () => {
+    const newErrors: {[key: string]: string} = {};
+
+    if (!loginData.username) {
+      newErrors.username = 'Username is required';
+    }
+
+    if (!loginData.password) {
+      newErrors.password = 'Password is required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
 
-    axios.get('https://parseapi.back4app.com/login', {
-      params: {
-        username: loginData.username,
-        password: loginData.password
-      },
-      headers: {
-        'X-Parse-Application-Id': 'lrAPveloMl57TTby5U0S4rFPBrANkAhLUll8jFOh',
-        'X-Parse-REST-API-Key': '8aqUBWOjOplfA6lstntyYsYVkt3RzpVtb8qU5x08',
-        'X-Parse-Revocable-Session': '1'
-      }
-    })
-    .then(response => {
-      console.log('Login successful:', response);
-    })
-    .catch(error => {
-      console.error('Error logging in:', error);
-    });
+    const isValid = validateInputs();
+
+    if (isValid) {
+      axios.get('https://parseapi.back4app.com/login', {
+        params: {
+          username: loginData.username,
+          password: loginData.password
+        },
+        headers: {
+          'X-Parse-Application-Id': 'lrAPveloMl57TTby5U0S4rFPBrANkAhLUll8jFOh',
+          'X-Parse-REST-API-Key': '8aqUBWOjOplfA6lstntyYsYVkt3RzpVtb8qU5x08',
+          'X-Parse-Revocable-Session': '1'
+        }
+      })
+        .then(response => {
+          console.log('Login successful:', response);
+        })
+        .catch(error => {
+          console.error('Error logging in:', error);
+        });
+    }
   };
 
   return (
@@ -93,8 +117,8 @@ const Login: React.FC = () => {
       </HeaderContainer>
       <LoginFormContainer>
         <form onSubmit={handleLogin}>
-          <TextField label="Username" name="username" value={loginData.username} onChange={handleInputChange} />
-          <TextField label="Password" type="password" name="password" value={loginData.password} onChange={handleInputChange} />
+          <TextField label="Username" name="username" value={loginData.username} onChange={handleInputChange} error={errors.username}/>
+          <TextField label="Password" type="password" name="password" value={loginData.password} onChange={handleInputChange} error={errors.password}/>
           <RegisterLink>
             Don't have an account? <a href="#">Register</a>
           </RegisterLink>
