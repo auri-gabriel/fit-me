@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TextField from '../components/Forms/Textfield';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
 import axios from 'axios';
+import {isValidEmail} from '../utils/isValidEmail';
 
 const SignupFormContainer = styled.div`
   max-width: 500px;
@@ -58,6 +59,14 @@ const Signup: React.FC = () => {
     confirmPassword: ''
   });
 
+  const [errors, setErrors] = useState({
+    fullName: null,
+    username: null,
+    email: null,
+    password: null,
+    confirmPassword: null
+  });
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
     setSignupData(prevData => ({
@@ -66,27 +75,60 @@ const Signup: React.FC = () => {
     }));
   };
 
+  const validateInputs = () => {
+    const newErrors: {[key: string]: string | null} = {};
+
+    if (!signupData.username) {
+      newErrors.username = 'Username is required';
+    }
+
+    if (!signupData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!isValidEmail(signupData.email)) {
+      newErrors.email = 'Invalid email format';
+    }
+
+    if (!signupData.password) {
+      newErrors.password = 'Password is required';
+    } else if (signupData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters long';
+    }
+
+    if (!signupData.confirmPassword) {
+      newErrors.confirmPassword = 'Confirm Password is required';
+    } else if (signupData.confirmPassword !== signupData.password) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+
   const handleSignup = (event: React.FormEvent) => {
     event.preventDefault();
 
-    axios.post('https://parseapi.back4app.com/users', {
-      username: signupData.username,
-      password: signupData.password,
-      email: signupData.email,
-    }, {
-      headers: {
-        'X-Parse-Application-Id': 'lrAPveloMl57TTby5U0S4rFPBrANkAhLUll8jFOh',
-        'X-Parse-REST-API-Key': '8aqUBWOjOplfA6lstntyYsYVkt3RzpVtb8qU5x08',
-        'X-Parse-Revocable-Session': '1',
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => {
-        console.log('Signup successful:', response);
+    const isValid = validateInputs();
+
+    if (isValid) {
+      axios.post('https://parseapi.back4app.com/users', {
+        username: signupData.username,
+        password: signupData.password,
+        email: signupData.email,
+      }, {
+        headers: {
+          'X-Parse-Application-Id': 'lrAPveloMl57TTby5U0S4rFPBrANkAhLUll8jFOh',
+          'X-Parse-REST-API-Key': '8aqUBWOjOplfA6lstntyYsYVkt3RzpVtb8qU5x08',
+          'X-Parse-Revocable-Session': '1',
+          'Content-Type': 'application/json'
+        }
       })
-      .catch(error => {
-        console.error('Error signing up:', error);
-      });
+        .then(response => {
+          console.log('Signup successful:', response);
+        })
+        .catch(error => {
+          console.error('Error signing up:', error);
+        });
+    }
   };
 
   return (
@@ -97,11 +139,11 @@ const Signup: React.FC = () => {
       </HeaderContainer>
       <SignupFormContainer>
         <form onSubmit={handleSignup}>
-          <TextField label="Full Name" name="fullName" value={signupData.fullName} onChange={handleInputChange} />
-          <TextField label="Username" name="username" value={signupData.username} onChange={handleInputChange} />
-          <TextField label="Email" type="email" name="email" value={signupData.email} onChange={handleInputChange} />
-          <TextField label="Password" type="password" name="password" value={signupData.password} onChange={handleInputChange} />
-          <TextField label="Confirm Password" type="password" name="confirmPassword" value={signupData.confirmPassword} onChange={handleInputChange} />
+          <TextField label="Full Name" name="fullName" value={signupData.fullName} onChange={handleInputChange} error={errors.fullName} />
+          <TextField label="Username" name="username" value={signupData.username} onChange={handleInputChange} error={errors.username} />
+          <TextField label="Email" type="email" name="email" value={signupData.email} onChange={handleInputChange} error={errors.email} />
+          <TextField label="Password" type="password" name="password" value={signupData.password} onChange={handleInputChange} error={errors.password} />
+          <TextField label="Confirm Password" type="password" name="confirmPassword" value={signupData.confirmPassword} onChange={handleInputChange} error={errors.confirmPassword} />
           <SignupLink>
             Already have an account? <a href="#">Login</a>
           </SignupLink>
