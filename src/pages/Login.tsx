@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TextField from '../components/Forms/Textfield';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const LoginFormContainer = styled.div`
   max-width: 500px;
@@ -120,7 +121,7 @@ const Login: React.FC = () => {
           <TextField label="Username" name="username" value={loginData.username} onChange={handleInputChange} error={errors.username}/>
           <TextField label="Password" type="password" name="password" value={loginData.password} onChange={handleInputChange} error={errors.password}/>
           <RegisterLink>
-            Don't have an account? <a href="#">Register</a>
+            Don't have an account? <Link to="/signup">Register</Link>
           </RegisterLink>
           <PrimaryButton type="submit">
             Login
