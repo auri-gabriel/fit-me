@@ -104,29 +104,58 @@ const Signup: React.FC = () => {
     return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
+  const [signupStatus, setSignupStatus] = useState('idle');
+
   const handleSignup = (event: React.FormEvent) => {
     event.preventDefault();
 
     const isValid = validateInputs();
 
     if (isValid) {
-      axios.post('https://parseapi.back4app.com/users', {
-        username: signupData.username,
-        password: signupData.password,
-        email: signupData.email,
-      }, {
-        headers: {
-          'X-Parse-Application-Id': 'lrAPveloMl57TTby5U0S4rFPBrANkAhLUll8jFOh',
-          'X-Parse-REST-API-Key': '8aqUBWOjOplfA6lstntyYsYVkt3RzpVtb8qU5x08',
-          'X-Parse-Revocable-Session': '1',
-          'Content-Type': 'application/json'
-        }
-      })
+      setSignupStatus('loading');
+      axios
+        .post(
+          'https://parseapi.back4app.com/graphql',
+          {
+            query: `
+            mutation SignUp($username: String!, $password: String!) {
+              signUp(input: {
+                fields: {
+                  username: $username,
+                  password: $password
+                }
+              }) {
+                viewer {
+                  user {
+                    id
+                    createdAt
+                  }
+                  sessionToken
+                }
+              }
+            }
+          `,
+            variables: {
+              username: signupData.username,
+              password: signupData.password,
+            },
+          },
+          {
+            headers: {
+              'X-Parse-Application-Id': 'DSiIkHz2MVbCZutKS7abtgrRVsiLNNGcs0L7VsNL',
+              'X-Parse-Master-Key': '0cpnqkSUKVkIDlQrNxameA6OmjxmrA72tsUMqVG9',
+              'X-Parse-Client-Key': 'zXOqJ2k44R6xQqqlpPuizAr3rs58RhHXfU7Aj20V',
+              'Content-Type': 'application/json',
+            },
+          },
+        )
         .then(response => {
           console.log('Signup successful:', response);
+          setSignupStatus('success');
         })
         .catch(error => {
           console.error('Error signing up:', error);
+          setSignupStatus('error');
         });
     }
   };
@@ -147,7 +176,9 @@ const Signup: React.FC = () => {
           <SignupLink>
             Already have an account? <a href="#">Login</a>
           </SignupLink>
-          <PrimaryButton type="submit">Sign Up</PrimaryButton>
+          <PrimaryButton type="submit">
+            {signupStatus === 'loading' ? 'Registering...' : 'Sign Up'}
+          </PrimaryButton>
         </form>
       </SignupFormContainer>
     </>

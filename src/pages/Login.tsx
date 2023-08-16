@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TextField from '../components/Forms/Textfield';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const LoginFormContainer = styled.div`
   max-width: 500px;
@@ -61,6 +61,8 @@ const Login: React.FC = () => {
     password: null,
   });
 
+  const [loginStatus, setLoginStatus] = useState('idle');
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
     setLoginData(prevData => ({
@@ -90,22 +92,55 @@ const Login: React.FC = () => {
     const isValid = validateInputs();
 
     if (isValid) {
-      axios.get('https://parseapi.back4app.com/login', {
-        params: {
-          username: loginData.username,
-          password: loginData.password
-        },
-        headers: {
-          'X-Parse-Application-Id': 'lrAPveloMl57TTby5U0S4rFPBrANkAhLUll8jFOh',
-          'X-Parse-REST-API-Key': '8aqUBWOjOplfA6lstntyYsYVkt3RzpVtb8qU5x08',
-          'X-Parse-Revocable-Session': '1'
-        }
-      })
-        .then(response => {
-          console.log('Login successful:', response);
+      setLoginStatus('loading');
+
+      axios
+        .post(
+          'https://parseapi.back4app.com/graphql',
+          {
+            query: `
+            mutation LogIn($username: String!, $password: String!) {
+              logIn(input: {
+                fields: {
+                  username: $username,
+                  password: $password
+                }
+              }) {
+                viewer {
+                  user {
+                    id
+                    createdAt
+                    updatedAt
+                    username
+                  }
+                  sessionToken
+                }
+              }
+            }
+          `,
+            variables: {
+              username: loginData.username,
+              password: loginData.password,
+            },
+          },
+          {
+            headers: {
+              'X-Parse-Application-Id': 'DSiIkHz2MVbCZutKS7abtgrRVsiLNNGcs0L7VsNL',
+              'X-Parse-Master-Key': '0cpnqkSUKVkIDlQrNxameA6OmjxmrA72tsUMqVG9',
+              'X-Parse-Client-Key': 'zXOqJ2k44R6xQqqlpPuizAr3rs58RhHXfU7Aj20V',
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+        .then((response) => {
+          console.log('Login successful:', response.data.data.loginUser);
+          const token = response.data.data.loginUser.token;
+          localStorage.setItem('authToken', token);
+          setLoginStatus('success');
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error logging in:', error);
+          setLoginStatus('error');
         });
     }
   };
@@ -118,13 +153,24 @@ const Login: React.FC = () => {
       </HeaderContainer>
       <LoginFormContainer>
         <form onSubmit={handleLogin}>
-          <TextField label="Username" name="username" value={loginData.username} onChange={handleInputChange} error={errors.username}/>
-          <TextField label="Password" type="password" name="password" value={loginData.password} onChange={handleInputChange} error={errors.password}/>
+          <TextField
+            label="Username"
+            name="username"
+            value={loginData.username}
+            onChange={handleInputChange}
+            error={errors.username} />
+          <TextField
+            label="Password"
+            type="password"
+            name="password"
+            value={loginData.password}
+            onChange={handleInputChange}
+            error={errors.password} />
           <RegisterLink>
             Don't have an account? <Link to="/signup">Register</Link>
           </RegisterLink>
           <PrimaryButton type="submit">
-            Login
+            {loginStatus === 'loading' ? 'Logging in...' : 'Login'}
           </PrimaryButton>
         </form>
       </LoginFormContainer>
