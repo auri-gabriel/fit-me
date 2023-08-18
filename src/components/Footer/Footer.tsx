@@ -116,9 +116,9 @@ const Footer: React.FC = () => {
           </ContactInfo>
         </TopRow>
         <SocialIcons>
-          <SocialIcon src="src/assets/facebook-icon.svg" alt="Facebook" />
-          <SocialIcon src="src/assets/instagram-icon.svg" alt="Instagram" />
-          <SocialIcon src="src/assets/twitter-icon.svg" alt="Twitter" />
+          <SocialIcon src="/src/assets/facebook-icon.svg" alt="Facebook" />
+          <SocialIcon src="/src/assets/instagram-icon.svg" alt="Instagram" />
+          <SocialIcon src="/src/assets/twitter-icon.svg" alt="Twitter" />
         </SocialIcons>
       </FooterContent>
     </FooterContainer>
