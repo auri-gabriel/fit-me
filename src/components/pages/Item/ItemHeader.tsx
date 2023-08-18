@@ -16,6 +16,7 @@ const ItemHeaderContainer = styled.div`
 
   @media (max-width: 1024px){
     padding: 5rem 5rem;
+    flex-direction: column;
   }
 `;
 
