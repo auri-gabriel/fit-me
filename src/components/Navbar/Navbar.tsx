@@ -19,24 +19,21 @@ const Logo = styled.img`
 `;
 
 const SearchBar = styled.input`
-  /* Styles for the search bar */
 `;
 
 const BagIcon = styled.img`
-  /* Styles for the bag icon */
 `;
 
 const SignInButton = styled.button`
-  /* Styles for the sign-in button */
 `;
 
 const HomeNavbar: React.FC = () => {
   return (
     <NavbarContainer>
       <NavbarContent>
-        <Logo src="src/assets/logo-color.svg" alt="Logo" />
+        <Logo src="/src/assets/logo-color.svg" alt="Logo" />
         <SearchBar placeholder="Search..." />
-        <BagIcon src="src/assets/bag-icon.svg" alt="Bag" />
+        <BagIcon src="/src/assets/bag-icon.svg" alt="Bag" />
         <SignInButton><Link to="/signin">Sign In</Link></SignInButton>
       </NavbarContent>
     </NavbarContainer>
@@ -47,7 +44,7 @@ const DefaultNavbar: React.FC = () => {
   return (
     <NavbarContainer>
       <NavbarContent>
-        <Logo src="src/assets/logo-color.svg" alt="Logo" />
+        <Logo src="/src/assets/logo-color.svg" alt="Logo" />
       </NavbarContent>
     </NavbarContainer>
   );

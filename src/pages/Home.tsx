@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import FoodCard from '../components/Cards/FoodCard';
@@ -47,14 +47,38 @@ const Home: React.FC = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
   useEffect(() => {
-    axios.get('https://parseapi.back4app.com/classes/FitMe', {
-      headers: {
-        'X-Parse-Application-Id': 'lrAPveloMl57TTby5U0S4rFPBrANkAhLUll8jFOh',
-        'X-Parse-REST-API-Key': '8aqUBWOjOplfA6lstntyYsYVkt3RzpVtb8qU5x08'
-      }
-    })
+    axios
+      .post(
+        'https://parseapi.back4app.com/graphql',
+        {
+          query: `
+            query FindFitMe {
+              fitMes{
+                count,
+                edges{
+                  node{
+                    id
+                    name
+                    rating
+                    location
+                  }
+                }
+              }
+            }
+          `,
+        },
+        {
+          headers: {
+            'X-Parse-Application-Id': 'DSiIkHz2MVbCZutKS7abtgrRVsiLNNGcs0L7VsNL',
+            'X-Parse-Master-Key': '0cpnqkSUKVkIDlQrNxameA6OmjxmrA72tsUMqVG9',
+            'X-Parse-Client-Key': 'zXOqJ2k44R6xQqqlpPuizAr3rs58RhHXfU7Aj20V',
+            'Content-Type': 'application/json',
+          },
+        },
+      )
       .then(response => {
-        setRestaurants(response.data.results);
+        console.log('Data:', response.data);
+        setRestaurants(response.data.data.fitMes.edges);
       })
       .catch(error => {
         console.error('Error fetching restaurant data:', error);
@@ -68,11 +92,12 @@ const Home: React.FC = () => {
         {restaurants.map((restaurant, index) => (
           <FoodCard
             key={index}
-            title={restaurant.name}
-            imageUrl={restaurant.image}
-            region={restaurant.location}
-            rating={restaurant.rating}
+            title={restaurant.node.name}
+            imageUrl="src/assets/placeholder.png"
+            region={restaurant.node.location}
+            rating={restaurant.node.rating}
             arrivalTime='30 min'
+            url={`/restaurant/${restaurant.node.id}`}
           />
         ))}
       </RestaurantsContainer>

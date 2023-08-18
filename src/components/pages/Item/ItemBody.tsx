@@ -1,5 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import ItemCard from './ItemCard';
+
+interface Dish {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+}
+
+interface ItemBodyProps {
+  dishes: Dish[];
+}
 
 const Container = styled.div`
   display: flex;
@@ -25,14 +38,16 @@ const CartColumn = styled.div`
   background-color: #f1f1f1;
 `;
 
-const ItemBody = () => {
+const ItemBody: React.FC<ItemBodyProps> = ({ dishes }) => {
   return (
     <Container>
       <FiltersColumn>
-        Filters
+        Top Dishes
       </FiltersColumn>
       <ItemsColumn>
-        Items
+        {dishes.map((dish) => (
+          <ItemCard dish={dish} />
+        ))}
       </ItemsColumn>
       <CartColumn>
         Cart

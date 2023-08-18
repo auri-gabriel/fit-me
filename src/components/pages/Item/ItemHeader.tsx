@@ -66,40 +66,40 @@ const ItemOffers = styled.div`
   border: 2px dashed #FC8019;
 `;
 
-interface ItemData {
+interface RestaurantData {
   name: string;
   location: string;
   rating: number;
   deliveryTime: string;
   cost: string;
   offers: string[];
-  imgUrl: string;
+  image: string;
 }
 
 interface ItemHeaderProps {
-  itemData: ItemData;
+  restaurantData: RestaurantData;
 }
 
-const ItemHeader: React.FC<ItemHeaderProps> = ({itemData}) => {
+const ItemHeader: React.FC<ItemHeaderProps> = ({restaurantData}) => {
   return (
     <ItemHeaderContainer>
-      <ItemImage src={itemData.imgUrl} alt="Item" />
+      <ItemImage src="/src/assets/placeholder2.png" alt="Item" />
       <ItemDescription>
-        <h2>{itemData.name}</h2>
-        <p>{itemData.location}</p>
+        <h2>{restaurantData.name}</h2>
+        <p>{restaurantData.location}</p>
         <ItemDetails>
           <ItemDetail>
-            <p>⭐{itemData.rating}</p>
+            <p>⭐{restaurantData.rating}</p>
             <p>100+ ratings</p>
           </ItemDetail>
           <VerticalRuler />
           <ItemDetail>
-            <p>{itemData.deliveryTime}</p>
+            <p>{restaurantData.deliveryTime}</p>
             <p>Delivery Time</p>
           </ItemDetail>
           <VerticalRuler />
           <ItemDetail>
-            <p>{itemData.cost}</p>
+            <p>{restaurantData.cost}</p>
             <p>Cost for two</p>
           </ItemDetail>
         </ItemDetails>

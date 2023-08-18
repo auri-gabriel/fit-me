@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 interface FoodCardProps {
   title: string;
@@ -7,6 +8,7 @@ interface FoodCardProps {
   region: string;
   rating: number;
   arrivalTime: string;
+  url: string;
 }
 
 const Card = styled.div`
@@ -59,24 +61,26 @@ const ArrivalIcon = styled.img`
   margin-right: 6px;
 `;
 
-const FoodCard: React.FC<FoodCardProps> = ({title, imageUrl, region, rating, arrivalTime}) => {
+const FoodCard: React.FC<FoodCardProps> = ({title, imageUrl, region, rating, arrivalTime, url}) => {
   return (
-    <Card>
-      <Image src={imageUrl} alt={title} />
-      <Title>{title}</Title>
-      <Details>
-        <Region>
-          {region}
-        </Region>
-        <Rating>
-          ⭐{rating}
-        </Rating>
-      </Details>
-      <ArrivalTime>
-        <ArrivalIcon src='src/assets/arrival.svg' alt="Icon" />
-        {arrivalTime}
-      </ArrivalTime>
-    </Card>
+    <Link to={url} style={{textDecoration: 'none', color: 'inherit'}}>
+      <Card>
+        <Image src={imageUrl} alt={title} />
+        <Title>{title}</Title>
+        <Details>
+          <Region>
+            {region}
+          </Region>
+          <Rating>
+            ⭐{rating}
+          </Rating>
+        </Details>
+        <ArrivalTime>
+          <ArrivalIcon src='src/assets/arrival.svg' alt="Icon" />
+          {arrivalTime}
+        </ArrivalTime>
+      </Card>
+    </Link>
   );
 };
 

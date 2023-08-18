@@ -101,10 +101,8 @@ const Login: React.FC = () => {
             query: `
             mutation LogIn($username: String!, $password: String!) {
               logIn(input: {
-                fields: {
-                  username: $username,
-                  password: $password
-                }
+              username: $username,
+              password: $password
               }) {
                 viewer {
                   user {
@@ -133,8 +131,8 @@ const Login: React.FC = () => {
           },
         )
         .then((response) => {
-          console.log('Login successful:', response.data.data.loginUser);
-          const token = response.data.data.loginUser.token;
+          console.log('Login successful:', response.data.data.logIn);
+          const token = response.data.data.logIn.viewer.sessionToken;
           localStorage.setItem('authToken', token);
           setLoginStatus('success');
         })
