@@ -80,29 +80,31 @@ const SignInButton = styled.button`
 `;
 
 const HomeNavbar: React.FC = () => {
-  return (
-    <NavbarContainer>
-      <NavbarContent>
-        <Logo src="/src/assets/logo-color.svg" alt="Logo" />
-        <NavbarToolbar>
-          <SearchBar placeholder="Enter item or restaurant you are looking for" />
-          <BagIcon src="/src/assets/Bag.svg" alt="Bag" />
-          <SignInButton><Link to="/login">Sign In</Link></SignInButton>
-        </NavbarToolbar>
-        <BurgerIcon src="/src/assets/Burger.svg" />
-      </NavbarContent>
-    </NavbarContainer>
-  );
+    return (
+        <NavbarContainer>
+            <NavbarContent>
+                <Link to="/">
+                    <Logo src="/src/assets/logo-color.svg" alt="Logo" />
+                </Link>
+                <NavbarToolbar>
+                    <SearchBar placeholder="Enter item or restaurant you are looking for" />
+                    <BagIcon src="/src/assets/Bag.svg" alt="Bag" />
+                    <SignInButton><Link to="/login">Sign In</Link></SignInButton>
+                </NavbarToolbar>
+                <BurgerIcon src="/src/assets/Burger.svg" />
+            </NavbarContent>
+        </NavbarContainer>
+    );
 };
 
 const DefaultNavbar: React.FC = () => {
-  return (
-    <NavbarContainer>
-      <NavbarContent>
-        <Logo src="/src/assets/logo-color.svg" alt="Logo" />
-      </NavbarContent>
-    </NavbarContainer>
-  );
+    return (
+        <NavbarContainer>
+            <NavbarContent>
+                <Logo src="/src/assets/logo-color.svg" alt="Logo" />
+            </NavbarContent>
+        </NavbarContainer>
+    );
 };
 
 export {HomeNavbar, DefaultNavbar};
