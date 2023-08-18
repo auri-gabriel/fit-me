@@ -1,5 +1,5 @@
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import RootLayout from './pages/Root';
+import RootHomeLayout from './pages/Root';
 import {createGlobalStyle} from 'styled-components';
 import reset from 'styled-reset';
 import '@fontsource/poppins';
@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: <RootHomeLayout />,
     children: [
       {
         path: '/login', element: <Login />,
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
           path: '/signup', element: <Signup />,
       },
       {
-        path: '/home', element: <Home/>
+        path: '/', element: <Home/>
       },
       {
         path: '/restaurant/:id', element: <Item/>
