@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ItemCard from './ItemCard';
+import Cart from './Cart.tsx';
 
 interface Dish {
   id: string;
@@ -45,7 +46,12 @@ const CartColumn = styled.div`
   padding: 20px;
 `;
 
-const ItemBody: React.FC<ItemBodyProps> = ({ dishes }) => {
+const ItemBody: React.FC<ItemBodyProps> = ({dishes}) => {
+  const cartItems: CartItem[] = [
+    {id: '1', name: 'Item 1', quantity: 2, price: 10},
+    {id: '2', name: 'Item 2', quantity: 1, price: 15},
+  ];
+
   return (
     <Container>
       <FiltersColumn>
@@ -57,7 +63,7 @@ const ItemBody: React.FC<ItemBodyProps> = ({ dishes }) => {
         ))}
       </ItemsColumn>
       <CartColumn>
-        Cart
+        <Cart cartItems={cartItems} />
       </CartColumn>
     </Container>
   );
