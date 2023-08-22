@@ -3,6 +3,7 @@ import axios from 'axios';
 import ItemHeader from '../components/pages/Item/ItemHeader';
 import ItemBody from '../components/pages/Item/ItemBody';
 import {useParams} from 'react-router-dom';
+import headers from '../graphql/headers';
 
 interface Restaurant {
   name: string;
@@ -62,12 +63,7 @@ const Item: React.FC = () => {
           },
         },
         {
-          headers: {
-            'X-Parse-Application-Id': 'DSiIkHz2MVbCZutKS7abtgrRVsiLNNGcs0L7VsNL',
-            'X-Parse-Master-Key': '0cpnqkSUKVkIDlQrNxameA6OmjxmrA72tsUMqVG9',
-            'X-Parse-Client-Key': 'zXOqJ2k44R6xQqqlpPuizAr3rs58RhHXfU7Aj20V',
-            'Content-Type': 'application/json',
-          },
+          headers: headers,
         },
       )
       .then((response) => {

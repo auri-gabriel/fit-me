@@ -5,6 +5,7 @@ import PrimaryButton from '../components/Buttons/PrimaryButton';
 import axios from 'axios';
 import {isValidEmail} from '../utils/isValidEmail';
 import { Link } from 'react-router-dom';
+import headers from '../graphql/headers';
 
 const SignupFormContainer = styled.div`
   max-width: 500px;
@@ -142,12 +143,7 @@ const Signup: React.FC = () => {
             },
           },
           {
-            headers: {
-              'X-Parse-Application-Id': 'DSiIkHz2MVbCZutKS7abtgrRVsiLNNGcs0L7VsNL',
-              'X-Parse-Master-Key': '0cpnqkSUKVkIDlQrNxameA6OmjxmrA72tsUMqVG9',
-              'X-Parse-Client-Key': 'zXOqJ2k44R6xQqqlpPuizAr3rs58RhHXfU7Aj20V',
-              'Content-Type': 'application/json',
-            },
+            headers: headers,
           },
         )
         .then(response => {
