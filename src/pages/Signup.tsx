@@ -6,6 +6,7 @@ import axios from 'axios';
 import {isValidEmail} from '../utils/isValidEmail';
 import { Link } from 'react-router-dom';
 import headers from '../graphql/headers';
+import Spinner from '../components/Spinner/Spinner';
 
 const SignupFormContainer = styled.div`
   max-width: 500px;
@@ -174,7 +175,7 @@ const Signup: React.FC = () => {
             Already have an account? <Link to="/login">Login</Link>
           </SignupLink>
           <PrimaryButton type="submit">
-            {signupStatus === 'loading' ? 'Registering...' : 'Sign Up'}
+            {signupStatus === 'loading' ? <Spinner size="16px" color="white" borderWidth="2px" /> : 'Sign Up'}
           </PrimaryButton>
         </form>
       </SignupFormContainer>

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import FoodCard from '../components/Cards/FoodCard';
 import headers from '../graphql/headers';
+import Spinner from '../components/Spinner/Spinner';
 
 interface Restaurant {
   name: string;
@@ -45,9 +46,11 @@ const HomeContainer = styled.div`
 `;
 
 const Home: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .post(
         'https://parseapi.back4app.com/graphql',
@@ -73,10 +76,12 @@ const Home: React.FC = () => {
         },
       )
       .then(response => {
+        setLoading(false);
         console.log('Data:', response.data);
         setRestaurants(response.data.data.fitMes.edges);
       })
       .catch(error => {
+        setLoading(false);
         console.error('Error fetching restaurant data:', error);
       });
   }, []);
@@ -85,6 +90,7 @@ const Home: React.FC = () => {
     <HomeContainer>
       <h2>Restaurants</h2>
       <RestaurantsContainer>
+        {loading && <Spinner color="black" size="24px" />}
         {restaurants.map((restaurant, index) => (
           <FoodCard
             key={index}
