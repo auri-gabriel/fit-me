@@ -50,7 +50,6 @@ const SpinnerContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
 `;
 
 const Home: React.FC = () => {
