@@ -45,6 +45,14 @@ const HomeContainer = styled.div`
   }
 `;
 
+const SpinnerContainer = styled.div`
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+`;
+
 const Home: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -90,7 +98,8 @@ const Home: React.FC = () => {
     <HomeContainer>
       <h2>Restaurants</h2>
       <RestaurantsContainer>
-        {loading && <Spinner color="black" size="24px" />}
+
+        {loading && <SpinnerContainer><Spinner color="black" size="24px" /></SpinnerContainer>}
         {restaurants.map((restaurant, index) => (
           <FoodCard
             key={index}
