@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TextField from '../components/Forms/Textfield';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
 import { Link } from 'react-router-dom';
-import loginUser from '../api/authApi';
+import { loginUser } from '../api/authApi';
 
 const LoginFormContainer = styled.div`
   max-width: 500px;

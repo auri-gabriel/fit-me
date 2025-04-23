@@ -2,22 +2,20 @@ import axios from 'axios';
 
 const fetchItemDetails = async (id: string) => {
   try {
+    const username = 'user';
+    const password = 'password';
+
     const response = await axios.post(
-      'https://parseapi.back4app.com/graphql',
+      'http://localhost:8080/graphql',
       {
         query: `
-          query GetFitMe($id: ID!) {
-            fitMe(id: $id) {
-              id
-              name
-              createdAt
-              updatedAt
-              rating
-              deliveryTime
-              image
-              location
-              topDishes {
-                ... on Dish {
+          query getRestaurant($id: ID!) {
+              getRestaurant(id: $id){
+                id
+                name
+                rating
+                location
+                topDishes {
                   id
                   name
                   price
@@ -25,7 +23,6 @@ const fetchItemDetails = async (id: string) => {
                   description
                 }
               }
-            }
           }
         `,
         variables: {
@@ -33,15 +30,14 @@ const fetchItemDetails = async (id: string) => {
         },
       },
       {
-        headers: {
-          'X-Parse-Application-Id': 'DSiIkHz2MVbCZutKS7abtgrRVsiLNNGcs0L7VsNL',
-          'X-Parse-Master-Key': '0cpnqkSUKVkIDlQrNxameA6OmjxmrA72tsUMqVG9',
-          'X-Parse-Client-Key': 'zXOqJ2k44R6xQqqlpPuizAr3rs58RhHXfU7Aj20V',
-          'Content-Type': 'application/json',
+        auth: {
+          username,
+          password,
         },
       }
     );
-    return response.data.data.fitMe;
+    console.log(response.data);
+    return response.data.data.getRestaurant;
   } catch (error) {
     console.error('Error fetching item details:', error);
     throw error;

@@ -68,12 +68,12 @@ const Home: React.FC = () => {
         {restaurants.map((restaurant, index) => (
           <FoodCard
             key={index}
-            title={restaurant.node.name}
+            title={restaurant.name}
             imageUrl="src/assets/placeholder.png"
-            region={restaurant.node.location}
-            rating={restaurant.node.rating}
+            region={restaurant.location}
+            rating={restaurant.rating}
             arrivalTime="30 min"
-            url={`/restaurant/${restaurant.node.id}`}
+            url={`/restaurant/${restaurant.id}`}
           />
         ))}
       </RestaurantsContainer>
