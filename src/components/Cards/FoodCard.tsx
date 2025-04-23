@@ -20,7 +20,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
 }) => {
   return (
     <Link to={url} style={{ textDecoration: 'none', color: 'inherit' }}>
-      <div className='card card-elevate bg-grey-100 p-3 rounded-4'>
+      <div className='card card-elevate border-0 bg-grey-100 p-3 rounded-4'>
         <img
           className='object-fit-cover rounded-2'
           style={{ aspectRatio: 1 / 1 }}
