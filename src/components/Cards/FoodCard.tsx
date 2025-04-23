@@ -11,15 +11,6 @@ interface FoodCardProps {
   url: string;
 }
 
-const Card = styled.div`
-  background-color: #F8F8F8;
-  border-radius: 10px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 20px
-`;
-
 const Image = styled.img`
   width: 256px;
   height: 256px;
@@ -28,58 +19,26 @@ const Image = styled.img`
   border-radius: 4px;
 `;
 
-const Title = styled.h3`
-  margin-top: 10px;
-  font-size: 20px;
-  word-wrap: break-word;
-  width: 256px;
-`;
 
-const Details = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 256px;
-`;
-
-const Region = styled.span`
-  color: #808080;
-`;
-const Rating = styled.span``;
-
-const ArrivalTime = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  width: 256px;
-`;
-
-const ArrivalIcon = styled.img`
-  width: 16px;
-  height: 16px;
-  margin-right: 6px;
-`;
-
-const FoodCard: React.FC<FoodCardProps> = ({title, imageUrl, region, rating, arrivalTime, url}) => {
+const FoodCard: React.FC<FoodCardProps> = ({title, imageUrl, region: location, rating, arrivalTime, url}) => {
   return (
     <Link to={url} style={{textDecoration: 'none', color: 'inherit'}}>
-      <Card>
-        <Image src={imageUrl} alt={title} />
-        <Title>{title}</Title>
-        <Details>
-          <Region>
-            {region}
-          </Region>
-          <Rating>
-            ⭐{rating}
-          </Rating>
-        </Details>
-        <ArrivalTime>
-          <ArrivalIcon src='src/assets/arrival.svg' alt="Icon" />
+      <div className='card bg-grey-100 p-4 border-0 rounded-4'>
+        <img className='object-fit-cover rounded-2' src={imageUrl} alt={title} />
+        <h3 className='mt-3 fs-lg'>{title}</h3>
+        <div className='d-flex flex-row justify-content-between'>
+          <span className='text-grey-600 fs-base'>
+            {location}
+          </span>
+          <span>
+            ⭐ {rating}
+          </span>
+        </div>
+        <div className='d-flex align-items-center justify-content-center mt-2 w-100'>
+          <img style={{ width: '16px', height: '16px' }} className='mx-2' src='src/assets/arrival.svg' alt="Icon" />
           {arrivalTime}
-        </ArrivalTime>
-      </Card>
+        </div>
+      </div>
     </Link>
   );
 };

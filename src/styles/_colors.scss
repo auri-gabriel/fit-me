@@ -1,0 +1,19 @@
+$custom-greys: (
+  "grey-100": #f8f8f8,
+  "grey-200": #e0e0e0,
+  "grey-300": #cfcfcf,
+  "grey-400": #bfbfbf,
+  "grey-500": #a0a0a0,
+  "grey-600": #7f7f7f,
+  "grey-700": #5f5f5f,
+  "grey-800": #3f3f3f,
+  "grey-900": #202020
+);
+
+$custom-colors: (
+    "primary": #fc8019,
+    "secondary": #202020,
+);
+
+$theme-colors: map-merge($custom-colors, $custom-greys);
+$theme-colors: map-merge($theme-colors, $custom-colors);
