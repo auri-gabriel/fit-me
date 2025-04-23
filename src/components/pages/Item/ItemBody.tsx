@@ -10,8 +10,15 @@ interface Dish {
   price: number;
 }
 
+interface TopDishes {
+  name: string;
+  image: string;
+  location: string;
+  rating: number;
+}
+
 interface ItemBodyProps {
-  dishes: Dish[];
+  dishes: Dish[] | TopDishes[];
 }
 
 const Container = styled.div`

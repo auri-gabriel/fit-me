@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextField from '../components/Forms/Textfield';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
-import axios from 'axios';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import loginUser from '../api/authApi';
 
 const LoginFormContainer = styled.div`
   max-width: 500px;
@@ -30,11 +30,11 @@ const HeaderContainer = styled.div`
     height: 1px;
   }
 
-  @media (max-width: 1440px){
+  @media (max-width: 1440px) {
     padding: 0 10rem;
   }
 
-  @media (max-width: 1024px){
+  @media (max-width: 1024px) {
     padding: 0 2rem;
   }
 `;
@@ -53,7 +53,7 @@ const RegisterLink = styled.p`
 const Login: React.FC = () => {
   const [loginData, setLoginData] = useState({
     username: '',
-    password: ''
+    password: '',
   });
 
   const [errors, setErrors] = useState({
@@ -64,15 +64,15 @@ const Login: React.FC = () => {
   const [loginStatus, setLoginStatus] = useState('idle');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setLoginData(prevData => ({
+    const { name, value } = event.target;
+    setLoginData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const validateInputs = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors: { [key: string]: string } = {};
 
     if (!loginData.username) {
       newErrors.username = 'Username is required';
@@ -86,7 +86,7 @@ const Login: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleLogin = (event: React.FormEvent) => {
+  const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const isValid = validateInputs();
@@ -94,52 +94,15 @@ const Login: React.FC = () => {
     if (isValid) {
       setLoginStatus('loading');
 
-      axios
-        .post(
-          'https://parseapi.back4app.com/graphql',
-          {
-            query: `
-            mutation LogIn($username: String!, $password: String!) {
-              logIn(input: {
-              username: $username,
-              password: $password
-              }) {
-                viewer {
-                  user {
-                    id
-                    createdAt
-                    updatedAt
-                    username
-                  }
-                  sessionToken
-                }
-              }
-            }
-          `,
-            variables: {
-              username: loginData.username,
-              password: loginData.password,
-            },
-          },
-          {
-            headers: {
-              'X-Parse-Application-Id': 'DSiIkHz2MVbCZutKS7abtgrRVsiLNNGcs0L7VsNL',
-              'X-Parse-Master-Key': '0cpnqkSUKVkIDlQrNxameA6OmjxmrA72tsUMqVG9',
-              'X-Parse-Client-Key': 'zXOqJ2k44R6xQqqlpPuizAr3rs58RhHXfU7Aj20V',
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-        .then((response) => {
-          console.log('Login successful:', response.data.data.logIn);
-          const token = response.data.data.logIn.viewer.sessionToken;
-          localStorage.setItem('authToken', token);
-          setLoginStatus('success');
-        })
-        .catch((error) => {
-          console.error('Error logging in:', error);
-          setLoginStatus('error');
-        });
+      try {
+        const data = await loginUser(loginData.username, loginData.password);
+        console.log('Login successful:', data);
+        localStorage.setItem('authToken', data.viewer.sessionToken);
+        setLoginStatus('success');
+      } catch (error) {
+        console.error('Error logging in:', error);
+        setLoginStatus('error');
+      }
     }
   };
 
@@ -156,14 +119,16 @@ const Login: React.FC = () => {
             name="username"
             value={loginData.username}
             onChange={handleInputChange}
-            error={errors.username} />
+            error={errors.username}
+          />
           <TextField
             label="Password"
             type="password"
             name="password"
             value={loginData.password}
             onChange={handleInputChange}
-            error={errors.password} />
+            error={errors.password}
+          />
           <RegisterLink>
             Don't have an account? <Link to="/signup">Register</Link>
           </RegisterLink>

@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextField from '../components/Forms/Textfield';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
-import axios from 'axios';
-import {isValidEmail} from '../utils/isValidEmail';
+import { isValidEmail } from '../utils/isValidEmail';
 import { Link } from 'react-router-dom';
+import { signupUser } from '../api/authApi';
 
 const SignupFormContainer = styled.div`
   max-width: 500px;
@@ -57,7 +57,7 @@ const Signup: React.FC = () => {
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
 
   const [errors, setErrors] = useState({
@@ -65,19 +65,21 @@ const Signup: React.FC = () => {
     username: null,
     email: null,
     password: null,
-    confirmPassword: null
+    confirmPassword: null,
   });
 
+  const [signupStatus, setSignupStatus] = useState('idle');
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setSignupData(prevData => ({
+    const { name, value } = event.target;
+    setSignupData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const validateInputs = () => {
-    const newErrors: {[key: string]: string | null} = {};
+    const newErrors: { [key: string]: string | null } = {};
 
     if (!signupData.username) {
       newErrors.username = 'Username is required';
@@ -105,59 +107,21 @@ const Signup: React.FC = () => {
     return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
-  const [signupStatus, setSignupStatus] = useState('idle');
-
-  const handleSignup = (event: React.FormEvent) => {
+  const handleSignup = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const isValid = validateInputs();
 
     if (isValid) {
       setSignupStatus('loading');
-      axios
-        .post(
-          'https://parseapi.back4app.com/graphql',
-          {
-            query: `
-            mutation SignUp($username: String!, $password: String!) {
-              signUp(input: {
-                fields: {
-                  username: $username,
-                  password: $password
-                }
-              }) {
-                viewer {
-                  user {
-                    id
-                    createdAt
-                  }
-                  sessionToken
-                }
-              }
-            }
-          `,
-            variables: {
-              username: signupData.username,
-              password: signupData.password,
-            },
-          },
-          {
-            headers: {
-              'X-Parse-Application-Id': 'DSiIkHz2MVbCZutKS7abtgrRVsiLNNGcs0L7VsNL',
-              'X-Parse-Master-Key': '0cpnqkSUKVkIDlQrNxameA6OmjxmrA72tsUMqVG9',
-              'X-Parse-Client-Key': 'zXOqJ2k44R6xQqqlpPuizAr3rs58RhHXfU7Aj20V',
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-        .then(response => {
-          console.log('Signup successful:', response);
-          setSignupStatus('success');
-        })
-        .catch(error => {
-          console.error('Error signing up:', error);
-          setSignupStatus('error');
-        });
+      try {
+        const data = await signupUser(signupData.username, signupData.password);
+        console.log('Signup successful:', data);
+        setSignupStatus('success');
+      } catch (error) {
+        console.error('Error signing up:', error);
+        setSignupStatus('error');
+      }
     }
   };
 
@@ -169,11 +133,44 @@ const Signup: React.FC = () => {
       </HeaderContainer>
       <SignupFormContainer>
         <form onSubmit={handleSignup}>
-          <TextField label="Full Name" name="fullName" value={signupData.fullName} onChange={handleInputChange} error={errors.fullName} />
-          <TextField label="Username" name="username" value={signupData.username} onChange={handleInputChange} error={errors.username} />
-          <TextField label="Email" type="email" name="email" value={signupData.email} onChange={handleInputChange} error={errors.email} />
-          <TextField label="Password" type="password" name="password" value={signupData.password} onChange={handleInputChange} error={errors.password} />
-          <TextField label="Confirm Password" type="password" name="confirmPassword" value={signupData.confirmPassword} onChange={handleInputChange} error={errors.confirmPassword} />
+          <TextField
+            label="Full Name"
+            name="fullName"
+            value={signupData.fullName}
+            onChange={handleInputChange}
+            error={errors.fullName}
+          />
+          <TextField
+            label="Username"
+            name="username"
+            value={signupData.username}
+            onChange={handleInputChange}
+            error={errors.username}
+          />
+          <TextField
+            label="Email"
+            type="email"
+            name="email"
+            value={signupData.email}
+            onChange={handleInputChange}
+            error={errors.email}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            name="password"
+            value={signupData.password}
+            onChange={handleInputChange}
+            error={errors.password}
+          />
+          <TextField
+            label="Confirm Password"
+            type="password"
+            name="confirmPassword"
+            value={signupData.confirmPassword}
+            onChange={handleInputChange}
+            error={errors.confirmPassword}
+          />
           <SignupLink>
             Already have an account? <Link to="/login">Login</Link>
           </SignupLink>

@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import FoodCard from '../components/Cards/FoodCard';
+import fetchRestaurants from '../api/restaurantApi';
 
 interface Restaurant {
+  node: any;
   name: string;
   image: string;
   location: string;
@@ -18,24 +19,25 @@ const RestaurantsContainer = styled.div`
   gap: 1.5rem;
   margin: 1rem 0;
 
-  @media (max-width: 1024px){
+  @media (max-width: 1024px) {
     justify-content: center;
   }
 `;
+
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 18rem;
-  
+
   h2 {
     font-size: 24px;
   }
 
-  @media (max-width: 1440px){
+  @media (max-width: 1440px) {
     padding: 0 10rem;
   }
 
-  @media (max-width: 1024px){
+  @media (max-width: 1024px) {
     padding: 0;
     h2 {
       text-align: center;
@@ -47,42 +49,16 @@ const Home: React.FC = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
   useEffect(() => {
-    axios
-      .post(
-        'https://parseapi.back4app.com/graphql',
-        {
-          query: `
-            query FindFitMe {
-              fitMes{
-                count,
-                edges{
-                  node{
-                    id
-                    name
-                    rating
-                    location
-                  }
-                }
-              }
-            }
-          `,
-        },
-        {
-          headers: {
-            'X-Parse-Application-Id': 'DSiIkHz2MVbCZutKS7abtgrRVsiLNNGcs0L7VsNL',
-            'X-Parse-Master-Key': '0cpnqkSUKVkIDlQrNxameA6OmjxmrA72tsUMqVG9',
-            'X-Parse-Client-Key': 'zXOqJ2k44R6xQqqlpPuizAr3rs58RhHXfU7Aj20V',
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-      .then(response => {
-        console.log('Data:', response.data);
-        setRestaurants(response.data.data.fitMes.edges);
-      })
-      .catch(error => {
-        console.error('Error fetching restaurant data:', error);
-      });
+    const fetchData = async () => {
+      try {
+        const data = await fetchRestaurants();
+        setRestaurants(data);
+      } catch (error) {
+        console.error('Error fetching restaurants:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -96,7 +72,7 @@ const Home: React.FC = () => {
             imageUrl="src/assets/placeholder.png"
             region={restaurant.node.location}
             rating={restaurant.node.rating}
-            arrivalTime='30 min'
+            arrivalTime="30 min"
             url={`/restaurant/${restaurant.node.id}`}
           />
         ))}
