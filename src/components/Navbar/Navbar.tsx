@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../../styles/components/Navbar.scss';
 import logo from '/src/assets/logo-color.svg';
 import bagIcon from '/src/assets/Bag.svg';
 import burgerIcon from '/src/assets/Burger.svg';

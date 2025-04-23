@@ -49,7 +49,7 @@ const Home: React.FC = () => {
       </div>
       <div className='container my-4'>
         <h2 className='mb-4'>Restaurants</h2>
-        <div className='d-flex flex-wrap gap-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5'>
+        <div className='d-flex flex-wrap gap-3 row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5'>
           {restaurants.map((restaurant, index) => (
             <FoodCard
               key={index}

@@ -1,0 +1,9 @@
+@import "../effects";
+
+.card.card-elevate {
+    transition: transform ease-in-out .15s;
+    &:hover {
+        transform: scale(1.025);
+        @include elevation(1);
+    }
+}
