@@ -8,13 +8,6 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Item from './pages/Item';
 
-const GlobalStyle = createGlobalStyle`
-  ${reset}
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
-`;
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,7 +31,6 @@ const router = createBrowserRouter([
 
 function App() {
   return <>
-    <GlobalStyle />
     <RouterProvider router={router} />
   </>
 }

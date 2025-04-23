@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import FoodCard from '../components/Cards/FoodCard';
 import fetchRestaurants from '../api/restaurantApi';
 
@@ -10,40 +9,6 @@ interface Restaurant {
   location: string;
   rating: number;
 }
-
-const RestaurantsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1.5rem;
-  margin: 1rem 0;
-
-  @media (max-width: 1024px) {
-    justify-content: center;
-  }
-`;
-
-const HomeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0 18rem;
-
-  h2 {
-    font-size: 24px;
-  }
-
-  @media (max-width: 1440px) {
-    padding: 0 10rem;
-  }
-
-  @media (max-width: 1024px) {
-    padding: 0;
-    h2 {
-      text-align: center;
-    }
-  }
-`;
 
 const Home: React.FC = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -62,9 +27,9 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <HomeContainer>
+    <div className='container'>
       <h2>Restaurants</h2>
-      <RestaurantsContainer>
+      <div className='d-flex flex-wrap gap-4'>
         {restaurants.map((restaurant, index) => (
           <FoodCard
             key={index}
@@ -76,8 +41,8 @@ const Home: React.FC = () => {
             url={`/restaurant/${restaurant.id}`}
           />
         ))}
-      </RestaurantsContainer>
-    </HomeContainer>
+      </div>
+    </div>
   );
 };
 
