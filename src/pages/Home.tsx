@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import FoodCard from '../components/Cards/FoodCard';
 import fetchRestaurants from '../api/restaurantApi';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { Autoplay } from 'swiper/modules';
 
 interface Restaurant {
   node: any;
@@ -31,7 +34,7 @@ const Home: React.FC = () => {
       <div className='bg-primary-200 mb-4'>
         <div className='container py-5'>
           <div className='row'>
-            <div className='col-6'>
+            <div className='col-6 d-flex flex-column justify-content-center'>
               <p className='fs-3xl'>
                 {' '}
                 Premium quality Food for your healthy & Daily Life
@@ -43,7 +46,37 @@ const Home: React.FC = () => {
                 dolorum ullam quod velit illo eaque!
               </p>
             </div>
-            <div className='col-6'></div>
+            <div className='col-6'>
+              <Swiper spaceBetween={50} slidesPerView={1.5} autoplay={true}>
+                <SwiperSlide>
+                  <img
+                    style={{
+                      height: '600px',
+                    }}
+                    src='src/assets/home/Image-1.png'
+                    alt=''
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    style={{
+                      height: '600px',
+                    }}
+                    src='src/assets/home/Image-2.png'
+                    alt=''
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    style={{
+                      height: '600px',
+                    }}
+                    src='src/assets/home/Image-3.png'
+                    alt=''
+                  />
+                </SwiperSlide>
+              </Swiper>
+            </div>
           </div>
         </div>
       </div>
