@@ -13,7 +13,11 @@ const fetchItemDetails = async (id: string) => {
               getRestaurant(id: $id){
                 id
                 name
+                createdAt
+                updatedAt
                 rating
+                deliveryTime
+                image
                 location
                 topDishes {
                   id
