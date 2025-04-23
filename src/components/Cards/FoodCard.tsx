@@ -11,14 +11,6 @@ interface FoodCardProps {
   url: string;
 }
 
-const Image = styled.img`
-  width: 256px;
-  height: 256px;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 4px;
-`;
-
 const FoodCard: React.FC<FoodCardProps> = ({
   title,
   imageUrl,
@@ -36,7 +28,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
           src={imageUrl}
           alt={title}
         />
-        <h3 className='mt-3 fs-lg'>{title}</h3>
+        <h3 className='mt-3 fs-lg fw-bold'>{title}</h3>
         <div className='d-flex flex-row justify-content-between mt-2'>
           <span className='text-grey-600 fs-base'>{location}</span>
           <span>⭐ {rating}</span>
