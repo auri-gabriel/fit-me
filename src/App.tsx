@@ -1,7 +1,5 @@
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import RootHomeLayout from './pages/Root';
-import {createGlobalStyle} from 'styled-components';
-import reset from 'styled-reset';
 import '@fontsource/poppins';
 import Login from './pages/Login';
 import Home from './pages/Home';
