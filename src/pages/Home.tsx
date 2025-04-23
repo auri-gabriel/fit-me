@@ -27,24 +27,44 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className='container my-4'>
-      <h2 className='mb-4'>Restaurants</h2>
-      <div className='d-flex flex-wrap gap-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5'>
-        {restaurants.map((restaurant, index) => (
-          <FoodCard
-            key={index}
-            title={restaurant.name}
-            imageUrl="src/assets/placeholder.png"
-            region={restaurant.location}
-            rating={restaurant.rating}
-            arrivalTime="30 min"
-            url={`/restaurant/${restaurant.id}`}
-          />
-        ))}
+    <>
+      <div className='bg-primary-200 mb-4'>
+        <div className='container py-5'>
+          <div className='row'>
+            <div className='col-6'>
+              <p className='fs-3xl'>
+                {' '}
+                Premium quality Food for your healthy & Daily Life
+              </p>
+              <p className='text-grey-700'>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
+                deserunt sunt doloribus quos recusandae deleniti obcaecati,
+                tenetur enim inventore ad! Mollitia sapiente a dignissimos,
+                dolorum ullam quod velit illo eaque!
+              </p>
+            </div>
+            <div className='col-6'></div>
+          </div>
+        </div>
       </div>
-    </div>
+      <div className='container my-4'>
+        <h2 className='mb-4'>Restaurants</h2>
+        <div className='d-flex flex-wrap gap-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5'>
+          {restaurants.map((restaurant, index) => (
+            <FoodCard
+              key={index}
+              title={restaurant.name}
+              imageUrl='src/assets/placeholder.png'
+              region={restaurant.location}
+              rating={restaurant.rating}
+              arrivalTime='30 min'
+              url={`/restaurant/${restaurant.id}`}
+            />
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 
 export default Home;
-

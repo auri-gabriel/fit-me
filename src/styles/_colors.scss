@@ -10,10 +10,25 @@ $custom-greys: (
   "grey-900": #202020
 );
 
-$custom-colors: (
-    "primary": #fc8019,
-    "secondary": #202020,
+$custom-primary-shades: (
+  "primary-100": #ffe5d2,
+  "primary-200": #ffc4a3,
+  "primary-300": #ffa375,
+  "primary-400": #ff8246,
+  "primary-500": #fc8019, // base
+  "primary-600": #cc6714,
+  "primary-700": #995010,
+  "primary-800": #66390b,
+  "primary-900": #332105
 );
 
-$theme-colors: map-merge($custom-colors, $custom-greys);
-$theme-colors: map-merge($theme-colors, $custom-colors);
+$custom-colors: (
+  "primary": #fc8019,
+  "secondary": #202020
+);
+
+// Merge all custom maps into one theme map
+$theme-colors: map-merge(
+  map-merge($custom-colors, $custom-greys),
+  $custom-primary-shades
+);
