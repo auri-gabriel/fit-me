@@ -24,13 +24,13 @@ const ItemBody: React.FC<ItemBodyProps> = ({ dishes }) => {
   return (
     <div className='container'>
       <div className='row'>
-        <div className='col-lg-2'>Top Dishes</div>
-        <div className='col-lg-7'>
+        <div className='col-12 col-lg-2'>Top Dishes</div>
+        <div className='col-12 col-lg-7'>
           {dishes.map((dish) => (
             <ItemCard dish={dish} />
           ))}
         </div>
-        <div className='col-lg-3'>Cart</div>
+        <div className='d-none d-lg-flex col-lg-3'>Cart</div>
       </div>
     </div>
   );
