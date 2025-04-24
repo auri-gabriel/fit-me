@@ -20,14 +20,14 @@ const HomeNavbar: React.FC = () => {
             placeholder='Enter item or restaurant you are looking for'
           />
           <img src={bagIcon} alt='Bag' />
-          <button className='btn btn-secondary px-4 py-3 rounded-3'>
-            <Link
-              to='/login'
-              className='fs-sm fw-bold text-white text-decoration-none'
-            >
+          <Link
+            to='/login'
+            className='fs-sm fw-bold text-white text-decoration-none'
+          >
+            <button className='btn btn-secondary px-4 py-3 rounded-3'>
               Sign&nbsp;In
-            </Link>
-          </button>
+            </button>
+          </Link>
         </div>
 
         <img src={burgerIcon} alt='Menu' className='d-md-none' />
