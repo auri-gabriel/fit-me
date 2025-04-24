@@ -30,7 +30,7 @@ const Item: React.FC = () => {
     const fetchData = async () => {
       try {
         const data = await fetchItemDetails(id!);
-        setRestaurant(data.restaurant);
+        setRestaurant(data);
         setTopDishes(data.topDishes);
       } catch (error) {
         console.error('Error fetching item details:', error);
@@ -49,4 +49,3 @@ const Item: React.FC = () => {
 };
 
 export default Item;
-
