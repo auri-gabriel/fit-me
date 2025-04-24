@@ -57,7 +57,7 @@ const Home: React.FC = () => {
                 slidesPerView={1.5}
                 loop={true}
                 autoplay={{
-                  delay: 2500,
+                  delay: 3000,
                   disableOnInteraction: false,
                 }}
                 onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
