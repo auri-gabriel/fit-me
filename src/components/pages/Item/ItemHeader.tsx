@@ -86,31 +86,35 @@ const ItemHeader: React.FC<ItemHeaderProps> = ({ restaurantData }) => {
     <div className='bg-secondary text-white'>
       <div className='container'>
         <div className='row py-4'>
-          <div className='col-12 col-lg-4 rounded-3 overflow-hidden'>
+          <div className='col-12 col-lg-3 rounded-3 overflow-hidden'>
             <img
               className='object-fit-cover'
               src='/src/assets/placeholder2.png'
               alt='Item'
             />
           </div>
-          <div className='col-12 pt-4 pt-xl-0 col-lg-8 px-xl-4 col-xl-4 p-2'>
+          <div className='d-flex flex-column justify-content-center col-12 pt-4 pt-xl-0 col-lg-8 px-xl-4 col-xl-4 p-2'>
             <h2 className=''>{restaurantData.name}</h2>
-            <p>{restaurantData.location}</p>
-            <div className='d-flex flex-row justify-content-between'>
+            <p className='mb-5'>{restaurantData.location}</p>
+            <div className='d-flex flex-column flex-sm-row justify-content-between'>
+              <hr className='d-sm-none' />
               <div>
-                <p>⭐{restaurantData.rating}</p>
-                <p>100+ ratings</p>
+                <p className='m-0'>⭐{restaurantData.rating}</p>
+                <p className='m-0'>100+ ratings</p>
               </div>
-              <div className='vertical-divider bg-white' />
+              <div className='d-none d-sm-block vertical-divider bg-white' />
+              <hr className='d-sm-none' />
               <div>
-                <p>{restaurantData.deliveryTime} Mins</p>
-                <p>Delivery Time</p>
+                <p className='m-0'>{restaurantData.deliveryTime} Mins</p>
+                <p className='m-0'>Delivery Time</p>
               </div>
-              <div className='vertical-divider bg-white' />
+              <div className='d-none d-sm-block vertical-divider bg-white' />
+              <hr className='d-sm-none' />
               <div>
                 <p>{restaurantData.cost}</p>
                 <p>Cost for two</p>
               </div>
+              <hr className='d-sm-none' />
             </div>
           </div>
           <div className='item-header__offers rounded-5 mt-4 mt-xl-0 offset-xl-1 border-primary col-12 col-xl-3 p-5'>
