@@ -1,0 +1,19 @@
+.home-banner__element-left {
+  transform: rotate(-37.84deg);
+  top: 25%;
+  z-index: -1;
+  left: -275px;
+  @include media-breakpoint-up(xxl) {
+    left: -150px;
+  }
+}
+
+.home-banner__element-right {
+  transform: rotate(-115.14deg);
+  right: -200px;
+  top: 25%;
+  z-index: -1;
+  @include media-breakpoint-up(xxl) {
+    right: 0;
+  }
+}

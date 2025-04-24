@@ -34,10 +34,10 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className='bg-primary-100 mb-4'>
+      <div className='mb-4'>
         <div className='container py-5'>
           <div className='row'>
-            <div className='col-6 d-flex flex-column justify-content-center'>
+            <div className='col-12 col-md-6 d-flex flex-column justify-content-center'>
               <p className='fs-3xl fw-bold'>
                 {' '}
                 Premium <span className='text-primary'>quality</span> Food for
@@ -50,7 +50,7 @@ const Home: React.FC = () => {
                 dolorum ullam quod velit illo eaque!
               </p>
             </div>
-            <div className='col-6'>
+            <div className='col-12 col-md-6'>
               <Swiper
                 modules={[Autoplay]}
                 spaceBetween={50}
@@ -87,6 +87,16 @@ const Home: React.FC = () => {
               </Swiper>
             </div>
           </div>
+          <img
+            className='d-none d-sm-block home-banner__element-left position-absolute'
+            src='src/assets/home/left-element.svg'
+            alt=''
+          />
+          <img
+            className='d-none d-sm-block home-banner__element-right position-absolute'
+            src='src/assets/home/right-element.svg'
+            alt=''
+          />
         </div>
       </div>
       <div className='container my-4'>
