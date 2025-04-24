@@ -27,7 +27,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
         display: 'contents',
       }}
     >
-      <div className='card card-elevate border-0 bg-grey-100 p-3 rounded-4 col-12 col-sm-6 col-lg-3'>
+      <div className='card card-elevate border-0 bg-grey-100 p-3 rounded-4'>
         <img
           className='object-fit-cover rounded-2 w-100'
           style={{ aspectRatio: 1 / 1 }}

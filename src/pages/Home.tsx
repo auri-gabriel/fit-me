@@ -67,17 +67,18 @@ const Home: React.FC = () => {
       </div>
       <div className='container my-4'>
         <h2 className='mb-4'>Restaurants</h2>
-        <div className='d-flex flex-wrap gap-3'>
+        <div className='row g-3'>
           {restaurants.map((restaurant, index) => (
-            <FoodCard
-              key={index}
-              title={restaurant.name}
-              imageUrl='src/assets/placeholder.png'
-              region={restaurant.location}
-              rating={restaurant.rating}
-              arrivalTime={restaurant.deliveryTime}
-              url={`/restaurant/${restaurant.id}`}
-            />
+            <div key={index} className='col-12 col-sm-6 col-lg-3'>
+              <FoodCard
+                title={restaurant.name}
+                imageUrl='src/assets/placeholder.png'
+                region={restaurant.location}
+                rating={restaurant.rating}
+                arrivalTime={restaurant.deliveryTime}
+                url={`/restaurant/${restaurant.id}`}
+              />
+            </div>
           ))}
         </div>
       </div>
