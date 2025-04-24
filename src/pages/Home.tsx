@@ -4,6 +4,7 @@ import fetchRestaurants from '../api/restaurantApi';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
+import '../styles/components/home/carousel.scss';
 
 interface Restaurant {
   node: any;
@@ -15,6 +16,8 @@ interface Restaurant {
 
 const Home: React.FC = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const images = ['Image-1.png', 'Image-2.png', 'Image-3.png'];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,42 +52,37 @@ const Home: React.FC = () => {
             <div className='col-6'>
               <Swiper
                 modules={[Autoplay]}
-                spaceBetween={75}
+                spaceBetween={50}
                 slidesPerView={1.5}
-                centeredSlides={false}
                 loop={true}
                 autoplay={{
-                  delay: 2000,
+                  delay: 2500,
                   disableOnInteraction: false,
                 }}
+                onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+                className='custom-swiper'
               >
-                <SwiperSlide>
-                  <img
-                    style={{
-                      height: '600px',
-                    }}
-                    src='src/assets/home/Image-1.png'
-                    alt=''
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    style={{
-                      height: '600px',
-                    }}
-                    src='src/assets/home/Image-2.png'
-                    alt=''
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    style={{
-                      height: '600px',
-                    }}
-                    src='src/assets/home/Image-3.png'
-                    alt=''
-                  />
-                </SwiperSlide>
+                {images.map((img, index) => {
+                  const diff = Math.abs(activeIndex - index);
+                  let scaleClass = 'scale-small';
+
+                  if (diff === 0) scaleClass = 'scale-large';
+                  else if (diff === 1 || diff === images.length - 1)
+                    scaleClass = 'scale-medium';
+
+                  return (
+                    <SwiperSlide key={index} className={scaleClass}>
+                      <img
+                        src={`src/assets/home/${img}`}
+                        alt=''
+                        style={{
+                          height: '600px',
+                          transition: 'transform linear 0.4s',
+                        }}
+                      />
+                    </SwiperSlide>
+                  );
+                })}
               </Swiper>
             </div>
           </div>
