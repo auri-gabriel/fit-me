@@ -101,12 +101,12 @@ const ItemHeader: React.FC<ItemHeaderProps> = ({ restaurantData }) => {
                 <p>⭐{restaurantData.rating}</p>
                 <p>100+ ratings</p>
               </div>
-              <div className='vertical-separator' />
+              <div className='vertical-divider bg-white' />
               <div>
                 <p>{restaurantData.deliveryTime} Mins</p>
                 <p>Delivery Time</p>
               </div>
-              <div className='vertical-separator' />
+              <div className='vertical-divider bg-white' />
               <div>
                 <p>{restaurantData.cost}</p>
                 <p>Cost for two</p>
