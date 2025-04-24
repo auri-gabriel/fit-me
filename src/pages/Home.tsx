@@ -34,13 +34,14 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className='bg-primary-200 mb-4'>
+      <div className='bg-primary-100 mb-4'>
         <div className='container py-5'>
           <div className='row'>
             <div className='col-6 d-flex flex-column justify-content-center'>
               <p className='fs-3xl'>
                 {' '}
-                Premium quality Food for your healthy & Daily Life
+                Premium <span className='text-primary'>quality</span> Food for
+                your <span className='text-primary'>healthy & Daily Life</span>
               </p>
               <p className='text-grey-700'>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
