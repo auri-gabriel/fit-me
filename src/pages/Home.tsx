@@ -47,7 +47,17 @@ const Home: React.FC = () => {
               </p>
             </div>
             <div className='col-6'>
-              <Swiper spaceBetween={50} slidesPerView={1.5} autoplay={true}>
+              <Swiper
+                modules={[Autoplay]}
+                spaceBetween={75}
+                slidesPerView={1.5}
+                centeredSlides={false}
+                loop={true}
+                autoplay={{
+                  delay: 2000,
+                  disableOnInteraction: false,
+                }}
+              >
                 <SwiperSlide>
                   <img
                     style={{
