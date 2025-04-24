@@ -15,6 +15,7 @@ const fetchRestaurants = async () => {
               name
               rating
               location
+              deliveryTime
           }
         }
         `,

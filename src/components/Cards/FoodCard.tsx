@@ -39,7 +39,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
             src='src/assets/arrival.svg'
             alt='Icon'
           />
-          {arrivalTime}
+          {arrivalTime} min
         </div>
       </div>
     </Link>

@@ -12,6 +12,7 @@ interface Restaurant {
   image: string;
   location: string;
   rating: number;
+  deliveryTime: number;
 }
 
 const Home: React.FC = () => {
@@ -132,7 +133,7 @@ const Home: React.FC = () => {
               imageUrl='src/assets/placeholder.png'
               region={restaurant.location}
               rating={restaurant.rating}
-              arrivalTime='30 min'
+              arrivalTime={restaurant.deliveryTime}
               url={`/restaurant/${restaurant.id}`}
             />
           ))}
