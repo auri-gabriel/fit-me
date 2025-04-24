@@ -8,11 +8,12 @@ import '../styles/components/home/carousel.scss';
 
 interface Restaurant {
   node: any;
+  id: string;
   name: string;
   image: string;
   location: string;
   rating: number;
-  deliveryTime: number;
+  deliveryTime: string;
 }
 
 const Home: React.FC = () => {
@@ -125,7 +126,7 @@ const Home: React.FC = () => {
       </div>
       <div className='container my-4'>
         <h2 className='mb-4'>Restaurants</h2>
-        <div className='d-flex flex-wrap gap-3 row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5'>
+        <div className='d-flex flex-wrap gap-3'>
           {restaurants.map((restaurant, index) => (
             <FoodCard
               key={index}

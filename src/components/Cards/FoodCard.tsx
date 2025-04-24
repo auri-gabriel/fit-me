@@ -19,10 +19,17 @@ const FoodCard: React.FC<FoodCardProps> = ({
   url,
 }) => {
   return (
-    <Link to={url} style={{ textDecoration: 'none', color: 'inherit' }}>
-      <div className='card card-elevate border-0 bg-grey-100 p-3 rounded-4'>
+    <Link
+      className='text-decoration-none'
+      to={url}
+      style={{
+        color: 'inherit',
+        display: 'contents',
+      }}
+    >
+      <div className='card card-elevate border-0 bg-grey-100 p-3 rounded-4 col-12 col-sm-6 col-lg-3'>
         <img
-          className='object-fit-cover rounded-2'
+          className='object-fit-cover rounded-2 w-100'
           style={{ aspectRatio: 1 / 1 }}
           src={imageUrl}
           alt={title}
