@@ -61,6 +61,28 @@ const Home: React.FC = () => {
                   disableOnInteraction: false,
                 }}
                 onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+                breakpoints={{
+                  0: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                  },
+                  576: {
+                    slidesPerView: 1.2,
+                    spaceBetween: 15,
+                  },
+                  768: {
+                    slidesPerView: 1.1,
+                    spaceBetween: 0,
+                  },
+                  992: {
+                    slidesPerView: 1.5,
+                    spaceBetween: 0,
+                  },
+                  1200: {
+                    slidesPerView: 1.5,
+                    spaceBetween: 30,
+                  },
+                }}
                 className='custom-swiper'
               >
                 {images.map((img, index) => {
@@ -76,6 +98,7 @@ const Home: React.FC = () => {
                       <img
                         src={`src/assets/home/${img}`}
                         alt=''
+                        className='w-100 h-auto'
                         style={{
                           height: '600px',
                           transition: 'transform linear 0.4s',
