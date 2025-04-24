@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import FoodCard from '../components/Cards/FoodCard';
 import fetchRestaurants from '../api/restaurantApi';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import { Autoplay } from 'swiper/modules';
+
 import '../styles/components/home/carousel.scss';
+import HomeCarousel from '../components/Home/HomeCarousel';
 
 interface Restaurant {
   node: any;
@@ -18,8 +17,6 @@ interface Restaurant {
 
 const Home: React.FC = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const images = ['Image-1.png', 'Image-2.png', 'Image-3.png'];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,63 +50,7 @@ const Home: React.FC = () => {
               </p>
             </div>
             <div className='col-12 col-md-6'>
-              <Swiper
-                modules={[Autoplay]}
-                spaceBetween={50}
-                slidesPerView={1.5}
-                loop={true}
-                autoplay={{
-                  delay: 3000,
-                  disableOnInteraction: false,
-                }}
-                onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-                breakpoints={{
-                  0: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                  },
-                  576: {
-                    slidesPerView: 1.2,
-                    spaceBetween: 15,
-                  },
-                  768: {
-                    slidesPerView: 1.1,
-                    spaceBetween: 0,
-                  },
-                  992: {
-                    slidesPerView: 1.5,
-                    spaceBetween: 0,
-                  },
-                  1200: {
-                    slidesPerView: 1.5,
-                    spaceBetween: 30,
-                  },
-                }}
-                className='custom-swiper'
-              >
-                {images.map((img, index) => {
-                  const diff = Math.abs(activeIndex - index);
-                  let scaleClass = 'scale-small';
-
-                  if (diff === 0) scaleClass = 'scale-large';
-                  else if (diff === 1 || diff === images.length - 1)
-                    scaleClass = 'scale-medium';
-
-                  return (
-                    <SwiperSlide key={index} className={scaleClass}>
-                      <img
-                        src={`src/assets/home/${img}`}
-                        alt=''
-                        className='w-100 h-auto'
-                        style={{
-                          height: '600px',
-                          transition: 'transform linear 0.4s',
-                        }}
-                      />
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
+              <HomeCarousel />
             </div>
           </div>
           <img
