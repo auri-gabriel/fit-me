@@ -38,7 +38,7 @@ const Home: React.FC = () => {
         <div className='container py-5'>
           <div className='row'>
             <div className='col-6 d-flex flex-column justify-content-center'>
-              <p className='fs-3xl'>
+              <p className='fs-3xl fw-bold'>
                 {' '}
                 Premium <span className='text-primary'>quality</span> Food for
                 your <span className='text-primary'>healthy & Daily Life</span>
