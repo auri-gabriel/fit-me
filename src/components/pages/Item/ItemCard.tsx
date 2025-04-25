@@ -20,7 +20,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ dish }) => {
         <p className='text-black fs-base fw-bold'>${dish.price}</p>
         <p className='text-grey-600 fs-base fw-normal'>{dish.description}</p>
       </div>
-      <div className='d-flex flex-column justify-content-center align-items-center position-relative flex-grow-1 mb-md-0 mb-3'>
+      <div className='d-flex flex-column justify-content-end align-items-center position-relative flex-grow-1 mb-md-0 mb-5'>
         <img
           src='/src/assets/placeholder.png'
           alt={dish.name}
@@ -28,12 +28,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ dish }) => {
           style={{ aspectRatio: 1 / 1, maxHeight: '160px' }}
         />
         <button
-          className='btn btn-light position-absolute'
+          className='btn btn-light text-success shadow-sm position-absolute'
           style={{
             bottom: '-24px',
-            color: '#1AC84B',
-            borderRadius: '10px',
-            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.10)',
           }}
         >
           Add +
