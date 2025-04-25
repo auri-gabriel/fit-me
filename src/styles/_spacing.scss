@@ -1,0 +1,22 @@
+@use 'sass:math';
+$custom-spacers: ();
+
+$max-spacer: 20;
+
+@for $i from 6 through $max-spacer {
+  $factor: 3 + ($i - 5) * 0.5;
+  $custom-spacers: map-merge(
+    $custom-spacers,
+    (
+      $i: $spacer * $factor,
+    )
+  );
+}
+
+$spacers: map-merge($spacers, $custom-spacers);
+
+:root {
+  @each $spacer, $value in $spacers {
+    --theme-spacer-#{$spacer}: #{$value};
+  }
+}

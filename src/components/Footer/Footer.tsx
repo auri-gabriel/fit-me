@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <div className='bg-primary py-5'>
+    <div className='bg-primary py-13'>
       <div className='container bg-primary'>
         <div>
           <div className='d-flex flex-row justify-content-between'>
