@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
           <div className='d-flex flex-row justify-content-between'>
             <img
               style={{ height: '40px' }}
-              src='src/assets/logo.svg'
+              src='/src/assets/logo.svg'
               alt='Logo'
             />
             <ul className='d-flex flex-row gap-5 list-unstyled'>
