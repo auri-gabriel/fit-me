@@ -18,16 +18,18 @@ const ItemHeader: React.FC<ItemHeaderProps> = ({ restaurantData }) => {
     <div className='bg-secondary text-white'>
       <div className='container'>
         <div className='row py-4'>
-          <div className='col-12 col-lg-3 rounded-3 overflow-hidden'>
+          <div className='col-12 col-lg-4 col-xl-3 rounded-3 overflow-hidden'>
             <img
               className='object-fit-cover'
               src='/src/assets/placeholder2.png'
               alt='Item'
             />
           </div>
-          <div className='d-flex flex-column justify-content-center col-12 pt-4 pt-xl-0 col-lg-8 px-xl-4 col-xl-4 p-2'>
-            <h2 className=''>{restaurantData.name}</h2>
-            <p className='mb-5'>{restaurantData.location}</p>
+          <div className='d-flex flex-column justify-content-center col-12 pt-4 pt-xl-0 col-lg-8 px-lg-5 col-xl-5'>
+            <div>
+              <h2 className='m-0'>{restaurantData.name}</h2>
+              <p className='mb-sm-5 text-grey-500'>{restaurantData.location}</p>
+            </div>
             <div className='d-flex flex-column flex-sm-row justify-content-between'>
               <hr className='d-sm-none' />
               <div>

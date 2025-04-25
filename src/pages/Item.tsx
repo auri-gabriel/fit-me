@@ -12,15 +12,21 @@ interface RestaurantData {
   cost: string;
   offers: string[];
   image: string;
+  categories: Category[];
   topDishes: Dish[];
 }
 
+interface Category {
+  id: string;
+  name: string;
+}
 interface Dish {
   id: string;
   name: string;
   price: number;
   image: string;
   description: string;
+  category: Category;
 }
 
 const Item: React.FC = () => {
@@ -79,7 +85,10 @@ const Item: React.FC = () => {
   return (
     <>
       <ItemHeader restaurantData={restaurant} />
-      <ItemBody dishes={restaurant.topDishes} />
+      <ItemBody
+        dishes={restaurant.topDishes}
+        categories={restaurant.categories}
+      />
     </>
   );
 };

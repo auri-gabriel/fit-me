@@ -1,44 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ItemCard from './ItemCard';
 
+interface Category {
+  id: string;
+  name: string;
+}
 interface Dish {
   id: string;
   name: string;
   image: string;
   description: string;
   price: number;
-  category?: string;
+  category: Category;
 }
 
 interface ItemBodyProps {
   dishes: Dish[];
+  categories: Category[];
 }
 
-const ItemBody: React.FC<ItemBodyProps> = ({ dishes }) => {
-  // Mocked categories
-  const categories = [
-    'Recommended',
-    'Breakfast Box',
-    'Lunch Box',
-    'Combo Box',
-    'Biriyani Box',
-  ];
+const ItemBody: React.FC<ItemBodyProps> = ({ dishes, categories }) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    categories[0].id
+  );
 
-  const [selectedCategory, setSelectedCategory] =
-    useState<string>('Recommended');
-  const [dishesWithCategories, setDishesWithCategories] = useState<Dish[]>([]);
-
-  // Assign random categories to dishes
-  useEffect(() => {
-    const dishesWithRandomCategories = dishes.map((dish) => ({
-      ...dish,
-      category: categories[Math.floor(Math.random() * categories.length)],
-    }));
-    setDishesWithCategories(dishesWithRandomCategories);
-  }, [dishes]);
-
-  const filteredDishes = dishesWithCategories.filter(
-    (dish) => dish.category === selectedCategory
+  const filteredDishes = dishes.filter(
+    (dish) => dish.category.id === selectedCategory
   );
 
   return (
@@ -47,16 +34,16 @@ const ItemBody: React.FC<ItemBodyProps> = ({ dishes }) => {
         <div className='col-12 col-lg-2 border-end'>
           <ul className='nav flex-column'>
             {categories.map((category) => (
-              <li className='nav-item' key={category}>
+              <li className='nav-item' key={category.id}>
                 <button
                   className={`nav-link fw-bold ${
-                    selectedCategory === category
+                    selectedCategory === category.id
                       ? 'text-primary'
                       : 'text-secondary'
                   }`}
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => setSelectedCategory(category.id)}
                 >
-                  {category}
+                  {category.name}
                 </button>
               </li>
             ))}

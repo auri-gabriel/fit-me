@@ -19,12 +19,20 @@ const fetchItemDetails = async (id: string) => {
                 deliveryTime
                 image
                 location
+                categories {
+                  id
+                  name
+                }
                 topDishes {
                   id
                   name
                   price
                   image
                   description
+                  category {
+                    id
+                    name
+                  }
                 }
               }
           }
