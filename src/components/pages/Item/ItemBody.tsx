@@ -34,7 +34,10 @@ const ItemBody: React.FC<ItemBodyProps> = ({ dishes, categories }) => {
         <div className='col-12 col-lg-2 border-end'>
           <ul className='nav flex-column'>
             {categories.map((category) => (
-              <li className='nav-item' key={category.id}>
+              <li
+                className='nav-item d-flex justify-content-end'
+                key={category.id}
+              >
                 <button
                   className={`nav-link fw-bold ${
                     selectedCategory === category.id
