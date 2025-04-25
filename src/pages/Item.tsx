@@ -12,38 +12,68 @@ interface RestaurantData {
   cost: string;
   offers: string[];
   image: string;
+  topDishes: Dish[];
 }
 
-interface TopDishes {
+interface Dish {
+  id: string;
   name: string;
+  price: number;
   image: string;
-  location: string;
-  rating: number;
+  description: string;
 }
 
 const Item: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [restaurant, setRestaurant] = useState<RestaurantData | null>(null);
-  const [topDishes, setTopDishes] = useState<TopDishes[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const data = await fetchItemDetails(id!);
+        const data = await fetchItemDetails(id);
         setRestaurant(data);
-        setTopDishes(data.topDishes);
-      } catch (error) {
-        console.error('Error fetching item details:', error);
+      } catch (err) {
+        setError('Failed to fetch item details. Please try again later.');
+        console.error('Error fetching item details:', err);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchData();
+    if (id) {
+      fetchData();
+    }
   }, [id]);
+
+  if (loading) {
+    return (
+      <div
+        className='d-flex justify-content-center align-items-center'
+        style={{ height: '100vh' }}
+      >
+        <div className='spinner-border text-primary' role='status'>
+          <span className='visually-hidden'>Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className='text-danger text-center'>{error}</div>;
+  }
+
+  if (!restaurant) {
+    return <div className='text-center'>No restaurant data available.</div>;
+  }
 
   return (
     <>
-      {restaurant && <ItemHeader restaurantData={restaurant} />}
-      <ItemBody dishes={topDishes} />
+      <ItemHeader restaurantData={restaurant} />
+      <ItemBody dishes={restaurant.topDishes} />
     </>
   );
 };

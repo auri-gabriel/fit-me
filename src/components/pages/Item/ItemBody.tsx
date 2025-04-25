@@ -9,15 +9,8 @@ interface Dish {
   price: number;
 }
 
-interface TopDishes {
-  name: string;
-  image: string;
-  location: string;
-  rating: number;
-}
-
 interface ItemBodyProps {
-  dishes: Dish[] | TopDishes[];
+  dishes: Dish[];
 }
 
 const ItemBody: React.FC<ItemBodyProps> = ({ dishes }) => {
