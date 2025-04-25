@@ -35,7 +35,7 @@ const ItemBody: React.FC<ItemBodyProps> = ({ dishes, categories }) => {
           <ul className='nav flex-column'>
             {categories.map((category) => (
               <li
-                className='nav-item d-flex justify-content-end'
+                className='nav-item d-flex justify-content-lg-end'
                 key={category.id}
               >
                 <button
@@ -51,6 +51,7 @@ const ItemBody: React.FC<ItemBodyProps> = ({ dishes, categories }) => {
               </li>
             ))}
           </ul>
+          <hr className='d-sm-none' />
         </div>
         <div className='col-12 col-lg-7'>
           {filteredDishes.map((dish) => (
