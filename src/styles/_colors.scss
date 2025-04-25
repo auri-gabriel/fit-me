@@ -1,34 +1,35 @@
 $custom-greys: (
-  "grey-100": #f8f8f8,
-  "grey-200": #e0e0e0,
-  "grey-300": #cfcfcf,
-  "grey-400": #bfbfbf,
-  "grey-500": #a0a0a0,
-  "grey-600": #7f7f7f,
-  "grey-700": #5f5f5f,
-  "grey-800": #3f3f3f,
-  "grey-900": #202020
+  'grey-100': #f8f8f8,
+  'grey-200': #e0e0e0,
+  'grey-300': #cfcfcf,
+  'grey-400': #bfbfbf,
+  'grey-500': #a0a0a0,
+  'grey-600': #7f7f7f,
+  'grey-700': #5f5f5f,
+  'grey-800': #3f3f3f,
+  'grey-900': #202020,
 );
 
 $custom-primary-shades: (
-  "primary-100": #ffe5d2,
-  "primary-200": #ffc4a3,
-  "primary-300": #ffa375,
-  "primary-400": #ff8246,
-  "primary-500": #fc8019, // base
-  "primary-600": #cc6714,
-  "primary-700": #995010,
-  "primary-800": #66390b,
-  "primary-900": #332105
+  'primary-100': #ffe5d2,
+  'primary-200': #ffc4a3,
+  'primary-300': #ffa375,
+  'primary-400': #ff8246,
+  'primary-500': #fc8019,
+  'primary-600': #cc6714,
+  'primary-700': #995010,
+  'primary-800': #66390b,
+  'primary-900': #332105,
 );
 
 $custom-colors: (
-  "primary": #fc8019,
-  "secondary": #202020
+  'primary': #fc8019,
+  'secondary': #202020,
 );
 
-// Merge all custom maps into one theme map
+$theme-colors: if(global-variable-exists(theme-colors), $theme-colors, ());
+
 $theme-colors: map-merge(
-  map-merge($custom-colors, $custom-greys),
-  $custom-primary-shades
+  $theme-colors,
+  map-merge(map-merge($custom-colors, $custom-greys), $custom-primary-shades)
 );

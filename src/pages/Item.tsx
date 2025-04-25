@@ -63,7 +63,13 @@ const Item: React.FC = () => {
   }
 
   if (error) {
-    return <div className='text-danger text-center'>{error}</div>;
+    return (
+      <div className='container'>
+        <div className='alert alert-danger my-5' role='alert'>
+          {error}
+        </div>
+      </div>
+    );
   }
 
   if (!restaurant) {
