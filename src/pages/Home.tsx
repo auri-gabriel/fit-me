@@ -6,7 +6,6 @@ import '../styles/components/home/carousel.scss';
 import HomeCarousel from '../components/Home/HomeCarousel';
 
 interface Restaurant {
-  node: any;
   id: string;
   name: string;
   image: string;

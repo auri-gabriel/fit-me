@@ -14,7 +14,7 @@ interface ItemCardProps {
 
 const ItemCard: React.FC<ItemCardProps> = ({ dish }) => {
   return (
-    <div className='card border-0 mb-4 p-3 d-flex flex-md-row flex-column-reverse align-items-center'>
+    <div className='card border-0 mb-4 p-3 d-flex flex-md-row flex-column-reverse align-items-center justify-content-end'>
       <div className='flex-grow-1'>
         <h3 className='text-black fs-lg fw-bold'>{dish.name}</h3>
         <p className='text-black fs-base fw-bold'>${dish.price}</p>
