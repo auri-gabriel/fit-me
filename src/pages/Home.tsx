@@ -67,18 +67,24 @@ const Home: React.FC = () => {
       <div className='container my-4'>
         <h2 className='mb-4'>Restaurants</h2>
         <div className='row g-3'>
-          {restaurants.map((restaurant, index) => (
-            <div key={index} className='col-12 col-sm-6 col-lg-3'>
-              <FoodCard
-                title={restaurant.name}
-                imageUrl='src/assets/placeholder.png'
-                region={restaurant.location}
-                rating={restaurant.rating}
-                arrivalTime={restaurant.deliveryTime}
-                url={`/restaurant/${restaurant.id}`}
-              />
+          {restaurants.length == 0 ? (
+            <div className='alert alert-warning' role='alert'>
+              <p> No Restaurants found. Try again later.</p>
             </div>
-          ))}
+          ) : (
+            restaurants.map((restaurant, index) => (
+              <div key={index} className='col-12 col-sm-6 col-lg-3'>
+                <FoodCard
+                  title={restaurant.name}
+                  imageUrl='src/assets/placeholder.png'
+                  region={restaurant.location}
+                  rating={restaurant.rating}
+                  arrivalTime={restaurant.deliveryTime}
+                  url={`/restaurant/${restaurant.id}`}
+                />
+              </div>
+            ))
+          )}
         </div>
       </div>
     </>
